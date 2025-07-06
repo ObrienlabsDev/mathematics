@@ -75,8 +75,13 @@ public class MatrixImpl implements Matrix {
 	@Override
 	public String toString() {
 		StringBuffer buffer = new StringBuffer("[");
-		IntStream flat = Arrays.stream(cells).flatMapToInt(Arrays::stream);
-		flat.forEach(c -> buffer.append(c));
+		//IntStream flat = Arrays.stream(cells).flatMapToInt(Arrays::stream);
+		//flat.forEach(c -> buffer.append(c));
+		Arrays.stream(cells).forEach(r -> {
+			buffer.append("[");
+			Arrays.stream(r).forEach(c -> buffer.append(c).append(","));
+			buffer.append("]");
+		});
 		buffer.append("]");
 		return buffer.toString();
 	}
