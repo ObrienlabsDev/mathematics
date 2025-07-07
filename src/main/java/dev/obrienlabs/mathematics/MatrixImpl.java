@@ -10,7 +10,7 @@ public class MatrixImpl implements Matrix {
 	// Primitives
 	private int rowSize = 4;
 	private int colSize = 4;
-	int[][] cells;// = new int[rowSize][colSize];
+	double[][] cells;// = new double[rowSize][colSize];
 	
 	
 	// OO
@@ -21,16 +21,16 @@ public class MatrixImpl implements Matrix {
 	public MatrixImpl(int rows, int cols) {
 		rowSize = rows;
 		colSize = cols;
-		cells = new int[rowSize][colSize];
+		cells = new double[rowSize][colSize];
 	}
 	
 	@Override
-	public int get(int r, int c) {
+	public double get(int r, int c) {
 		return cells[r][c];
 	}
 	
 	@Override
-	public void set(int r, int c, int value) {
+	public void set(int r, int c, double value) {
 		cells[r][c] = value;
 	}
 	
