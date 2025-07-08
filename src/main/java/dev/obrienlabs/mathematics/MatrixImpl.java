@@ -12,6 +12,7 @@ import java.util.stream.IntStream;
 public class MatrixImpl implements Matrix {
 
 	// Primitives
+	// parameterize for valid/different matrix sizes
 	private final int rowSize;
 	private final int colSize;
 	double[] cells;// = new double[rowSize][colSize];
@@ -51,9 +52,22 @@ public class MatrixImpl implements Matrix {
 	}
 
 	@Override
-	public Matrix multiply(Matrix m1) {
-		// TODO Auto-generated method stub
-		return null;
+	public Matrix multiply(Matrix m1) throws IllegalArgumentException {
+		if(this.colSize() != m1.rowSize()) {
+			throw new IllegalArgumentException("matrix A columns must equal matrix B rows");
+		}
+		Matrix m3 = new MatrixImpl(this.rowSize(), m1.colSize());
+		// iterate cols of b across rows of a, dot product at each intersection
+		for(int c = 0; c < m1.colSize(); c++) {
+			for(int r = 0; r < this.rowSize(); r++) {
+				double dp = 0.0;
+				for(int i = 0; i < this.colSize(); i++) {
+					dp += this.get(r, i) * m1.get(i, c);
+				}
+				m3.set(r, c, dp);
+			}
+		}
+		return m3;
 	}
 
 	public Map<Integer, Map<Integer, Number>> getRowMap() { return rowMap; }
@@ -97,10 +111,11 @@ public class MatrixImpl implements Matrix {
 		Matrix m1 = new MatrixImpl(4,4);
 		Matrix m2 = new MatrixImpl(4,4);
 		m1.set(0, 0, 1);
-		m2.set(0, 0, 2);
-		m1.set(2, 1, 1);
-		m2.set(1, 4, 2);
-		Matrix m3 = m1.subtract(m2);
+		m1.set(1, 1, 2);
+		m2.set(0, 0, 1);
+		m2.set(1, 1, 2);
+		//Matrix m3 = m1.subtract(m2);
+		Matrix m3 = m1.multiply(m2);
 		System.out.println(m3);
 		
 	}

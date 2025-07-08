@@ -8,7 +8,7 @@ public interface Matrix {
 	double get(int pos);
 	Matrix add(Matrix m1);
 	Matrix subtract(Matrix m1);
-	Matrix multiply(Matrix m1);
+	Matrix multiply(Matrix m1) throws IllegalArgumentException;
 	
 	// statistics
 	int rowSize();
