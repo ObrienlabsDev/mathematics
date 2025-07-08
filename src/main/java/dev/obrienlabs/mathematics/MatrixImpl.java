@@ -44,8 +44,10 @@ public class MatrixImpl implements Matrix {
 
 	@Override
 	public Matrix subtract(Matrix m1) {
-		// TODO Auto-generated method stub
-		return null;
+		Matrix m3 = new MatrixImpl(m1.rowSize(), m1.colSize());
+		IntStream.range(0, rowSize * colSize)
+			.forEach(i -> m3.set(i, this.get(i) - m1.get(i)));
+		return m3;
 	}
 
 	@Override
@@ -98,7 +100,7 @@ public class MatrixImpl implements Matrix {
 		m2.set(0, 0, 2);
 		m1.set(2, 1, 1);
 		m2.set(1, 4, 2);
-		Matrix m3 = m1.add(m2);
+		Matrix m3 = m1.subtract(m2);
 		System.out.println(m3);
 		
 	}
