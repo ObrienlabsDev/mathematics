@@ -3,6 +3,7 @@ package dev.obrienlabs.mathematics;
 import java.util.Arrays;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.atomic.DoubleAdder;
 import java.util.stream.IntStream;
 
 /**
@@ -58,17 +59,18 @@ public class MatrixImpl implements Matrix {
 		}
 		Matrix m3 = new MatrixImpl(this.rowSize(), m1.colSize());
 		// iterate cols of b across rows of a, dot product at each intersection
-		for(int c = 0; c < m1.colSize(); c++) {
-			for(int r = 0; r < this.rowSize(); r++) {
-				double dp = 0.0;
-				for(int i = 0; i < this.colSize(); i++) {
-					dp += this.get(r, i) * m1.get(i, c);
-				}
-				m3.set(r, c, dp);
-			}
-		}
+		IntStream.range(0, m1.colSize()).forEach(c -> {
+			IntStream.range(0, this.rowSize()).forEach(r -> {
+				DoubleAdder dp = new DoubleAdder();
+				IntStream.range(0, this.colSize()).forEach(i -> {
+					dp.add(this.get(r, i) * m1.get(i, c));
+				});
+				m3.set(r, c, dp.doubleValue());
+			});
+		});
 		return m3;
 	}
+	
 
 	public Map<Integer, Map<Integer, Number>> getRowMap() { return rowMap; }
 
