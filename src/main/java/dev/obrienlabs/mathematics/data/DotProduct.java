@@ -3,11 +3,11 @@ package dev.obrienlabs.mathematics.data;
 import java.util.List;
 import java.util.concurrent.atomic.DoubleAdder;
 import java.util.stream.Collectors;
-import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 /**
  * Multiply a matrix row by a matrix column vector
+ * 20250714 Michael O'Brien
  */
 public class DotProduct {
 	
